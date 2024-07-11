@@ -17,33 +17,93 @@ class ImplementingSubjectsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEDECEC),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'icons/eiems-logo.png',
+                    height: 40.0,
+                  ),
+                  const SizedBox(width: 15.0),
+                  const Text(
+                    'EIEMS',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Color(0xFF383838),
+                      fontFamily: 'KronaOne',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.dashboard),
+              title: const Text('Dashboard'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyApp()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage Class'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ImplementingSubjectsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage Class'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CollegePOCManagementScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF6CBCFB),
-        toolbarHeight: 140,
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
         title: const Text(
-          'Implementing\nSubjects',
-          textAlign: TextAlign.center,
+          'Dashboard',
           style: TextStyle(
             fontSize: 24,
             color: Colors.white,
             fontFamily: 'KronaOne',
           ),
         ),
-        centerTitle: true,
+        elevation: 20.0,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
-
       body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: 15.0),
@@ -65,108 +125,6 @@ class ImplementingSubjectsScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: ButtonsLayout(),
-              ),
-            ],
-          ),
-        ),
-      ),
-
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        child: SizedBox(
-          height: 80.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyApp()),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.dashboard,
-                    ),
-                    Text(
-                      'Dashboard',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ImplementingSubjectsScreen(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.subject,
-                      color: Color(0xFF0187F1),
-                    ),
-                    Text(
-                      'Implement Subjects',
-                      style: TextStyle(
-                        color: Color(0xFF0187F1),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CollegePOCManagementScreen(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.manage_accounts_sharp),
-                    Text(
-                      'Manage POC',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.person),
-                    Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
@@ -295,173 +253,181 @@ class _ExpansionPanelWidgetState extends State<ExpansionPanelWidget> {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: _subjects.length,
-        itemBuilder: (context, index) {
-          final subject = _subjects[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ExpansionTile(
-                title: Text(
-                  subject.subjectName,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins-SemiBold',
-                  ),
-                ),
-                leading: Image.asset(
-                  'icons/down-button.png',
-                  width: 30,
-                  height: 30,
-                  color: const Color(0xFF0187F1),
-                ),
-                controlAffinity: ListTileControlAffinity.leading,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Text(
-                              'Course Code: ',
-                              style: TextStyle(
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              subject.subjectCode,
-                              style: const TextStyle(
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _subjects.length,
+              itemBuilder: (context, index) {
+                final subject = _subjects[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ExpansionTile(
+                      title: Text(
+                        subject.subjectName,
+                        style: const TextStyle(
+                          fontFamily: 'Poppins-SemiBold',
                         ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            const Text(
-                              'Year Level: ',
-                              style: TextStyle(
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              subject.yearLevel.toString(),
-                              style: const TextStyle(
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            const Text(
-                              'Program: ',
-                              style: TextStyle(
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              subject.program,
-                              style: const TextStyle(
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Action(s):',
-                              style: TextStyle(
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: 10,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => EditSubjectScreen(
-                                      subjectId: int.tryParse(subject.id) ?? 0,
-                                      subjectName: subject.subjectName,
-                                      subjectCode: subject.subjectCode,
-                                      program: subject.program,
-                                      yearLevel: subject.yearLevel,
+                      ),
+                      leading: Image.asset(
+                        'icons/down-button.png',
+                        width: 30,
+                        height: 30,
+                        color: const Color(0xFF0187F1),
+                      ),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Course Code: ',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins-SemiBold',
+                                      fontSize: 10,
                                     ),
                                   ),
-                                );
-                              },
-                              child: const Row(
-                                children: [
-                                  Icon(Icons.edit, size: 20,),
-                                  SizedBox(width: 4),
                                   Text(
-                                    'Edit',
-                                    style: TextStyle(
+                                    subject.subjectCode,
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins-Regular',
                                       fontSize: 10,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            GestureDetector(
-                              onTap: () {
-                                _deleteSubject(subject.id);
-                              },
-                              child: const Row(
+                              const SizedBox(height: 8),
+                              Row(
                                 children: [
-                                  Icon(Icons.delete, size: 20,),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    'Delete',
+                                  const Text(
+                                    'Year Level: ',
                                     style: TextStyle(
+                                      fontFamily: 'Poppins-SemiBold',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  Text(
+                                    subject.yearLevel.toString(),
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins-Regular',
                                       fontSize: 10,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Program: ',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins-SemiBold',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  Text(
+                                    subject.program,
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins-Regular',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Action(s):',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins-SemiBold',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditSubjectScreen(
+                                            subjectId:
+                                                int.tryParse(subject.id) ?? 0,
+                                            subjectName: subject.subjectName,
+                                            subjectCode: subject.subjectCode,
+                                            program: subject.program,
+                                            yearLevel: subject.yearLevel,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(
+                                          Icons.edit,
+                                          size: 20,
+                                        ),
+                                        SizedBox(width: 4),
+                                        Text(
+                                          'Edit',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins-Regular',
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _deleteSubject(subject.id);
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(
+                                          Icons.delete,
+                                          size: 20,
+                                        ),
+                                        SizedBox(width: 4),
+                                        Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins-Regular',
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 10.0),
+                          child: Divider(
+                            thickness: 1.0,
+                            color: Colors.black,
+                            indent: 40.0,
+                            endIndent: 40.0,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 10.0),
-                    child: Divider(
-                      thickness: 1.0,
-                      color: Colors.black,
-                      indent: 40.0,
-                      endIndent: 40.0,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
   }
 }
 
@@ -481,29 +447,30 @@ class ButtonsLayout extends StatelessWidget {
     }
   }
 
-  Future<void> sendDataToBackend(List<List<dynamic>> data, BuildContext context) async {
+  Future<void> sendDataToBackend(
+      List<List<dynamic>> data, BuildContext context) async {
     Uri uri = Uri.parse('http://localhost/college_poc/importSubj.php');
     try {
-      List<Map<String, dynamic>> jsonList = data.map((list) => {
-        'id': list[0],
-        'subject_name': list[1],
-        'subject_code': list[2],
-        'program': list[3],
-        'year_level': list[4]
-      }).toList();
+      List<Map<String, dynamic>> jsonList = data
+          .map((list) => {
+                'id': list[0],
+                'subject_name': list[1],
+                'subject_code': list[2],
+                'program': list[3],
+                'year_level': list[4]
+              })
+          .toList();
 
       var response = await http.post(uri, body: {'data': jsonList.toString()});
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Subjects successfully uploaded'))
-        );
+            const SnackBar(content: Text('Subjects successfully uploaded')));
       } else {
         throw Exception('Failed to upload data');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'))
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -519,7 +486,8 @@ class ButtonsLayout extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddSubjectsScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const AddSubjectsScreen()),
               );
             },
             icon: const Icon(
