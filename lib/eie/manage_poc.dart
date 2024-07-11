@@ -16,33 +16,93 @@ class CollegePOCManagementScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEDECEC),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'icons/eiems-logo.png',
+                    height: 40.0,
+                  ),
+                  const SizedBox(width: 15.0),
+                  const Text(
+                    'EIEMS',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Color(0xFF383838),
+                      fontFamily: 'KronaOne',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.dashboard),
+              title: const Text('Dashboard'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyApp()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage Class'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ImplementingSubjectsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage Class'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CollegePOCManagementScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF6CBCFB),
-        toolbarHeight: 140,
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
         title: const Text(
-          'POC\nManagement',
-          textAlign: TextAlign.center,
+          'Dashboard',
           style: TextStyle(
             fontSize: 24,
             color: Colors.white,
             fontFamily: 'KronaOne',
           ),
         ),
-        centerTitle: true,
+        elevation: 20.0,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
@@ -55,7 +115,8 @@ class CollegePOCManagementScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const ViewActivePOCScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const ViewActivePOCScreen()),
                     );
                   },
                   child: const Text(
@@ -83,107 +144,6 @@ class CollegePOCManagementScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(top: 15, right: 15),
                 child: ButtonsLayout(),
-              ),
-            ],
-          ),
-        ),
-      ),
-
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        child: SizedBox(
-          height: 80.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyApp()),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.dashboard,
-                    ),
-                    Text(
-                      'Dashboard',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ImplementingSubjectsScreen(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.subject,
-                    ),
-                    Text(
-                      'Implement Subjects',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CollegePOCManagementScreen(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.manage_accounts_sharp, color: Color(0xFF0187F1)),
-                    Text(
-                      'Manage POC',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF0187F1),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.person),
-                    Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
@@ -223,8 +183,6 @@ class ContainerManager extends StatelessWidget {
   }
 }
 
-
-
 class CollegePOCList extends StatefulWidget {
   const CollegePOCList({super.key});
 
@@ -236,7 +194,8 @@ class _CollegePOCListState extends State<CollegePOCList> {
   List<dynamic> pocData = [];
 
   Future<void> fetchPOCs() async {
-    final response = await http.get(Uri.parse('http://localhost/college_poc/display_contacts.php'));
+    final response = await http
+        .get(Uri.parse('http://localhost/college_poc/display_contacts.php'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -297,7 +256,8 @@ class ButtonsLayout extends StatelessWidget {
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('CSV File has been successfully Imported.')),
+          const SnackBar(
+              content: Text('CSV File has been successfully Imported.')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -463,18 +423,24 @@ class ExpansionPanelWidget1 extends StatelessWidget {
                           // Navigate to EditPOCScreen
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => EditPOCScreen(id: id,)),
+                            MaterialPageRoute(
+                                builder: (context) => EditPOCScreen(
+                                      id: id,
+                                    )),
                           );
                         },
                         child: const Row(
                           children: [
                             Icon(Icons.edit, size: 20),
                             SizedBox(width: 4),
-                            Text('Edit', style: TextStyle(fontSize: 10, fontFamily: 'Poppins-Regular',)),
+                            Text('Edit',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'Poppins-Regular',
+                                )),
                           ],
                         ),
                       ),
-
                       const SizedBox(width: 16),
                       GestureDetector(
                         onTap: () {
@@ -484,7 +450,11 @@ class ExpansionPanelWidget1 extends StatelessWidget {
                           children: [
                             Icon(Icons.delete, size: 20),
                             SizedBox(width: 4),
-                            Text('Delete', style: TextStyle(fontSize: 10, fontFamily: 'Poppins-Regular',)),
+                            Text('Delete',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'Poppins-Regular',
+                                )),
                           ],
                         ),
                       ),

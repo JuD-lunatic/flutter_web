@@ -12,58 +12,96 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEDECEC),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 220,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF6CBCFB),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
+                color: Colors.white,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      const Text(
-                        'Profile',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontFamily: 'KronaOne',
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.logout, color: Colors.white),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginFormScreen()),
-                          );
-                        },
-                      ),
-                    ],
+                  Image.asset(
+                    'icons/eiems-logo.png',
+                    height: 40.0,
                   ),
-                  const SizedBox(height: 10),
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('icons/user-icon.png'),
+                  const SizedBox(width: 15.0),
+                  const Text(
+                    'EIEMS',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Color(0xFF383838),
+                      fontFamily: 'KronaOne',
+                    ),
                   ),
                 ],
               ),
             ),
+            ListTile(
+              leading: const Icon(Icons.dashboard),
+              title: const Text('Dashboard'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyApp()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage Class'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ImplementingSubjectsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage Class'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CollegePOCManagementScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF6CBCFB),
+        title: const Text(
+          'Dashboard',
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+            fontFamily: 'KronaOne',
+          ),
+        ),
+        elevation: 20.0,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
             const SizedBox(height: 16),
             Text(
               'EIE',
@@ -73,9 +111,13 @@ class ProfileScreen extends StatelessWidget {
                 color: const Color(0xFF0187F1),
               ),
             ),
+            const CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('icons/user-icon.png'),
+            ),
             const SizedBox(height: 16),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 500.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -83,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                   const Text(
                     'Information',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -95,7 +137,8 @@ class ProfileScreen extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => _buildPasswordUpdateDialog(context),
+                        builder: (BuildContext context) =>
+                            _buildPasswordUpdateDialog(context),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -117,23 +160,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: BottomAppBar(
-          color: Colors.white,
-          child: SizedBox(
-            height: 80.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                buildBottomNavigationItem(context, Icons.dashboard, 'Dashboard', const MyApp()),
-                buildBottomNavigationItem(context, Icons.subject, 'Implement Subjects', const ImplementingSubjectsScreen()),
-                buildBottomNavigationItem(context, Icons.manage_accounts_sharp, 'Manage POC', const CollegePOCManagementScreen()),
-                buildBottomNavigationItem(context, Icons.person, 'Profile', const ProfileScreen(), isActive: true),
-              ],
-            ),
-          ),
         ),
       ),
     );
@@ -160,7 +186,9 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildBottomNavigationItem(BuildContext context, IconData icon, String label, Widget targetScreen, {bool isActive = false}) {
+  Widget buildBottomNavigationItem(
+      BuildContext context, IconData icon, String label, Widget targetScreen,
+      {bool isActive = false}) {
     return GestureDetector(
       onTap: () {
         Navigator.pushReplacement(
@@ -200,7 +228,8 @@ class ProfileScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: 'Current Password',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
             obscureText: true,
           ),
@@ -208,7 +237,8 @@ class ProfileScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: 'New Password',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
             obscureText: true,
           ),
@@ -216,7 +246,8 @@ class ProfileScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: 'Verify New Password',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
             obscureText: true,
           ),
@@ -230,7 +261,8 @@ class ProfileScreen extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF0187F1),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
           child: Text(
             'Update',

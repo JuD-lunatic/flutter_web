@@ -28,16 +28,80 @@ class EIEMainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEDECEC),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFF6CBCFB),
-        toolbarHeight: 140,
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-          ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'icons/eiems-logo.png',
+                    height: 40.0,
+                  ),
+                  const SizedBox(width: 15.0),
+                  const Text(
+                    'EIEMS',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Color(0xFF383838),
+                      fontFamily: 'KronaOne',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.dashboard),
+              title: const Text('Dashboard'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyApp()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Implementing Subjects'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ImplementingSubjectsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.class_rounded),
+              title: const Text('Manage POCs'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CollegePOCManagementScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
+                );
+              },
+            ),
+          ],
         ),
+      ),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF6CBCFB),
         title: const Text(
           'Dashboard',
           style: TextStyle(
@@ -46,114 +110,15 @@ class EIEMainScreen extends StatelessWidget {
             fontFamily: 'KronaOne',
           ),
         ),
-        centerTitle: true,
-      ),
-
-      body: const BarGraph(),
-
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        child: SizedBox(
-          height: 80.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyApp()),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.dashboard,
-                      color: Color(0xFF0187F1),
-                    ),
-                    Text(
-                      'Dashboard',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF0187F1),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ImplementingSubjectsScreen(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.data_thresholding),
-                    Text(
-                      'Implement Subjects',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CollegePOCManagementScreen(),
-                    ),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.manage_accounts_sharp),
-                    Text(
-                      'Manage POC',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                  );
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.person),
-                    Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        elevation: 20.0,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
         ),
       ),
+      body: const BarGraph(),
     );
   }
 }
-
 
 class GrowthData {
   final String month;
@@ -211,18 +176,15 @@ class _BarGraphState extends State<BarGraph> {
                   charts.ChartTitle('Month',
                       behaviorPosition: charts.BehaviorPosition.bottom,
                       titleOutsideJustification:
-                      charts.OutsideJustification.middleDrawArea),
+                          charts.OutsideJustification.middleDrawArea),
                   charts.ChartTitle('Completion Rate',
                       behaviorPosition: charts.BehaviorPosition.start,
                       titleOutsideJustification:
-                      charts.OutsideJustification.middleDrawArea),
+                          charts.OutsideJustification.middleDrawArea),
                 ],
                 primaryMeasureAxis: charts.NumericAxisSpec(
                   tickFormatterSpec: charts.BasicNumericTickFormatterSpec(
-                        (num? value) =>
-                    value != null
-                        ? '${value.toInt()}%'
-                        : '',
+                    (num? value) => value != null ? '${value.toInt()}%' : '',
                   ),
                 ),
               ),
