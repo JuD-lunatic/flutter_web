@@ -56,17 +56,19 @@ class SubmissionsScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ClassroomScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ClassroomScreen()),
                 );
               },
             ),
             ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.add_task_rounded),
               title: const Text('Submissions'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SubmissionsScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const SubmissionsScreen()),
                 );
               },
             ),
@@ -76,7 +78,8 @@ class SubmissionsScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
                 );
               },
             ),
@@ -104,7 +107,6 @@ class SubmissionsScreen extends StatelessWidget {
           child: ContainerManager(),
         ),
       ),
-
       floatingActionButton: Stack(
         children: [
           Positioned(
@@ -183,11 +185,11 @@ class SubmissionsScreen extends StatelessWidget {
                                 child: Text(
                                   'Pronunciation',
                                   style: GoogleFonts.getFont(
-                                      'Poppins',
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 12,
-                                      letterSpacing: -0.2,
-                                      color: const Color(0xFF000000),
+                                    'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                    letterSpacing: -0.2,
+                                    color: const Color(0xFF000000),
                                   ),
                                 ),
                               ),
@@ -198,11 +200,11 @@ class SubmissionsScreen extends StatelessWidget {
                                   child: Text(
                                     'Grammar',
                                     style: GoogleFonts.getFont(
-                                        'Poppins',
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12,
-                                        letterSpacing: -0.2,
-                                        color: const Color(0xFF000000),
+                                      'Poppins',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                      letterSpacing: -0.2,
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ),
@@ -213,13 +215,13 @@ class SubmissionsScreen extends StatelessWidget {
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     'Fluency',
-                                   style: GoogleFonts.getFont(
-                                       'Poppins',
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12,
-                                        letterSpacing: -0.2,
-                                        color: const Color(0xFF000000),
-                                   ),
+                                    style: GoogleFonts.getFont(
+                                      'Poppins',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                      letterSpacing: -0.2,
+                                      color: const Color(0xFF000000),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -255,32 +257,34 @@ class SubmissionsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                             Container(
-                               margin: const EdgeInsets.fromLTRB(0, 0, 5.6, 6),
-                               child: Text(
-                                 'EPGF Average',
-                                 style: GoogleFonts.getFont(''
-                                     'Poppins',
-                                   fontWeight: FontWeight.w700,
-                                   fontSize: 12,
-                                   letterSpacing: -0.2,
-                                   color: const Color(0xFF000000),
-                                 ),
-                               ),
-                             ),
-                             Container(
-                               margin: const EdgeInsets.fromLTRB(0, 0, 13.9, 0),
-                               child: Text(
-                                 'Proficiency',
-                                 style: GoogleFonts.getFont(
-                                     'Poppins',
-                                   fontWeight: FontWeight.w700,
-                                   fontSize: 12,
-                                   letterSpacing: -0.2,
-                                   color: const Color(0xFF000000),
-                                 ),
-                               ),
-                             ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 5.6, 6),
+                                child: Text(
+                                  'EPGF Average',
+                                  style: GoogleFonts.getFont(
+                                    ''
+                                    'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                    letterSpacing: -0.2,
+                                    color: const Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.fromLTRB(0, 0, 13.9, 0),
+                                child: Text(
+                                  'Proficiency',
+                                  style: GoogleFonts.getFont(
+                                    'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                    letterSpacing: -0.2,
+                                    color: const Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -293,7 +297,7 @@ class SubmissionsScreen extends StatelessWidget {
                               child: Text(
                                 '2.25',
                                 style: GoogleFonts.getFont(
-                                    'Poppins',
+                                  'Poppins',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
                                   letterSpacing: -0.2,
@@ -379,7 +383,6 @@ class SubmissionsScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                           ],
                         )
                       ],
@@ -412,7 +415,8 @@ class _ContainerManagerState extends State<ContainerManager> {
   }
 
   fetchSubmissions() async {
-    final response = await http.get(Uri.parse('http://localhost/college_poc/fetch_submissions.php'));
+    final response = await http
+        .get(Uri.parse('http://localhost/college_poc/fetch_submissions.php'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -438,7 +442,8 @@ class _ContainerManagerState extends State<ContainerManager> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ViewSubmitGradedScreen(submission: submission)),
+                          builder: (context) =>
+                              ViewSubmitGradedScreen(submission: submission)),
                     );
                   },
                   child: Container(

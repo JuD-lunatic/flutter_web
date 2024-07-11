@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.class_rounded),
-              title: const Text('Manage Class'),
+              title: const Text('Implementing Subjects'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -61,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.class_rounded),
-              title: const Text('Manage Class'),
+              title: const Text('Manage POCs'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -87,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF6CBCFB),
         title: const Text(
-          'Dashboard',
+          'Profile',
           style: TextStyle(
             fontSize: 24,
             color: Colors.white,
@@ -98,6 +98,18 @@ class ProfileScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LoginFormScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

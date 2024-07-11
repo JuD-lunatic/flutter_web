@@ -55,7 +55,7 @@ class ImplementingSubjectsScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.class_rounded),
-              title: const Text('Manage Class'),
+              title: const Text('Implementing Subjects'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -66,7 +66,7 @@ class ImplementingSubjectsScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.class_rounded),
-              title: const Text('Manage Class'),
+              title: const Text('Manage POCs'),
               onTap: () {
                 Navigator.push(
                   context,
