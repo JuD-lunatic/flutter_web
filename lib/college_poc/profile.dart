@@ -63,7 +63,8 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
                 );
               },
             ),
@@ -73,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF6CBCFB),
         title: const Text(
-          'Dashboard',
+          'Profile',
           style: TextStyle(
             fontSize: 24,
             color: Colors.white,
@@ -84,6 +85,18 @@ class ProfileScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LoginFormScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -130,7 +143,8 @@ class ProfileScreen extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => _buildPasswordUpdateDialog(context),
+                        builder: (BuildContext context) =>
+                            _buildPasswordUpdateDialog(context),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -178,7 +192,9 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildBottomNavigationItem(BuildContext context, IconData icon, String label, Widget targetScreen, {bool isActive = false}) {
+  Widget buildBottomNavigationItem(
+      BuildContext context, IconData icon, String label, Widget targetScreen,
+      {bool isActive = false}) {
     return GestureDetector(
       onTap: () {
         Navigator.pushReplacement(
@@ -218,7 +234,8 @@ class ProfileScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: 'Current Password',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
             obscureText: true,
           ),
@@ -226,7 +243,8 @@ class ProfileScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: 'New Password',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
             obscureText: true,
           ),
@@ -234,7 +252,8 @@ class ProfileScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               labelText: 'Verify New Password',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
             obscureText: true,
           ),
@@ -248,7 +267,8 @@ class ProfileScreen extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF0187F1),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
           child: Text(
             'Update',
